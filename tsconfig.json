@@ -14,8 +14,9 @@
     "rootDir": "src",
     "suppressImplicitAnyIndexErrors": true,
     "target": "es5",
-    "baseUrl": "src/types",
+    "baseUrl": "/",
     "typeRoots" : ["src/types", "node_modules/@types"],
+    "watch": true,
     "lib": [
       "ES2015",
       "ES2016",
