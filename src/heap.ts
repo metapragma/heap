@@ -4,11 +4,11 @@ export type CompareFunction<T> = (a: number, b: number) => number
 
 export default class Heap<T> {
   private data: number[] = []
-  constructor(data: number[]) { 
+  constructor(data: number[]) {
     this.data = data
   }
 
-  private compareFunction (a: number, b: number): number {
+  private compareFunction(a: number, b: number): number {
     if (a > b) {
       return -1
     } else if (a < b) {
@@ -18,35 +18,35 @@ export default class Heap<T> {
     }
   }
 
-  public leftChildIndex(nodeIndex: number): number {
+  leftChildIndex(nodeIndex: number): number {
     // 2n + 1 to find left child
     return (2 * nodeIndex) + 1
   }
 
-  public rightChildIndex(nodeIndex: number): number {
+  rightChildIndex(nodeIndex: number): number {
     // 2n + 2 to find right child
     return (2 * nodeIndex) + 2
   }
 
-  public parentIndex(nodeIndex: number): number {
+  parentIndex(nodeIndex: number): number {
     // reverse logic
     return nodeIndex % 2 === 0 ? (nodeIndex - 2) / 2 : (nodeIndex - 1) / 2
   }
 
-  public leftChild(nodeIndex: number): number {
+  leftChild(nodeIndex: number): number {
     return this.data[this.leftChildIndex(nodeIndex)]
   }
 
-  public rightChild(nodeIndex: number): number {
+  rightChild(nodeIndex: number): number {
     return this.data[this.rightChildIndex(nodeIndex)]
   }
 
-  public parent(nodeIndex: number): number {
+  parent(nodeIndex: number): number {
     return this.data[this.parentIndex(nodeIndex)]
   }
 
   // O(logn)
-  public add(element: number) {
+  add(element: number) {
     this.data.push(element)
     this.siftUp(this.data.length - 1)
   }
@@ -55,13 +55,13 @@ export default class Heap<T> {
     let parent = this.parentIndex(index)
     // while we haven't reached the peek and current node is smaller than parent node, swap
     while (index > 0 && this.compareFunction(this.data[parent], this.data[index]) > 0) {
-      [this.data[parent], this.data[index]] = [this.data[index], this.data[parent]] 
+      [this.data[parent], this.data[index]] = [this.data[index], this.data[parent]]
       index = parent
       parent = this.parentIndex(index)
     }
   }
 
-  public extractRoot(): number | null {
+  extractRoot(): number | null {
     if (this.data.length > 0) {
       const root = this.data[0]
       const last = this.data.pop()
@@ -98,7 +98,7 @@ export default class Heap<T> {
 
     // compare left and right children of input index
     let min = minIndex(this.leftChildIndex(nodeIndex), this.rightChildIndex(nodeIndex))
-    
+
     // while there are children nodes and input index is smaller than child
     while (min >= 0 && this.compareFunction(this.data[nodeIndex], this.data[min]) >= 0) {
       [this.data[min], this.data[nodeIndex]] = [this.data[nodeIndex], this.data[min]]
@@ -107,11 +107,11 @@ export default class Heap<T> {
     }
   }
 
-  public size() {
+  size() {
     return this.data.length
   }
 
-  public peek(): number | undefined {
+  peek(): number | undefined {
     if (this.data.length > 0) {
       return this.data[0]
     } else {
